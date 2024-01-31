@@ -60,8 +60,9 @@ public class BaseShape extends Transform implements Cloneable {
      * @return Updated BaseShape
      */
     public BaseShape addAll(Collection<Point2d> coords) {
+        //coords.addAll(coords.stream().map(Point2d::clone).toList());
         for (Point2d points : coords){
-            this.add(points);
+            this.add(points.clone());
         }
         return this;
     }
@@ -106,15 +107,9 @@ public class BaseShape extends Transform implements Cloneable {
      * @return Updated BaseShape
      * */
     public BaseShape replaceAll(Collection<Point2d> newCoords) {
-        Collection<Point2d> temp_coords = coords;
-        for (Point2d points : temp_coords)
-        {
-            this.remove(points);
-        }
-        for (Point2d points : newCoords)
-        {
-            this.add(points);
-        }
+        coords.clear();
+        coords.addAll(newCoords);
+
         return this;
     }
 

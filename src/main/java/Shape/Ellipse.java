@@ -13,8 +13,8 @@ public class Ellipse extends BaseShape {
      * @param heightDiameter Height of the Ellipse
      */
     public Ellipse(Double widthDiameter, Double heightDiameter) {
-        double a = widthDiameter / 2.0;
-        double b = heightDiameter / 2.0;
+        double a = widthDiameter;
+        double b = heightDiameter;
 
         for (double x = -a; x <= a; x += .5) {
             for (double y = -b; y <= b; y += .5) {
