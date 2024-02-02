@@ -2,7 +2,6 @@ package Letter;
 
 import Point.Point2d;
 import Shape.*;
-import pabeles.concurrency.IntOperatorTask;
 
 public final class LetterFactory {
     final static Double maxHeight = 150.0;
@@ -19,24 +18,27 @@ public final class LetterFactory {
      */
     public static BaseShape create_A()  {
         BaseShape a = new BaseShape();
-        Rectangle d = new Rectangle(maxHeight, stripeThickness);
 
-        Point2d translate_d = new Point2d(-maxWidth,0.0 );
-        d.translate(d.getCoords(), translate_d);
-        d.rotate(d.getCoords(), Math.toRadians(-70.0));
+        // rectangle gauche
+        Rectangle left = new Rectangle(maxHeight, stripeThickness);
+        Point2d translate_left = new Point2d(-maxWidth,0.0 );
+        left.translate(left.getCoords(), translate_left);
+        left.rotate(left.getCoords(), Math.toRadians(-72.0));
 
-        Rectangle g = new Rectangle(maxHeight, stripeThickness);
-        Point2d translate_g = new Point2d(maxWidth,0.0 );
-        g.translate(g.getCoords(), translate_g);
-        g.rotate(g.getCoords(), Math.toRadians(70.0));
+        // rectangle droite
+        Rectangle right = new Rectangle(maxHeight, stripeThickness);
+        Point2d translate_right = new Point2d(maxWidth,0.0 );
+        right.translate(right.getCoords(), translate_right);
+        right.rotate(right.getCoords(), Math.toRadians(72.0));
 
-        Rectangle m = new Rectangle(halfMaxWidth, stripeThickness);
-        Point2d translate_m = new Point2d(0.0,maxHeight/2);
-        m.translate(m.getCoords(), translate_m);
+        // rectangle milieu
+        Rectangle middle = new Rectangle(halfMaxWidth, stripeThickness);
+        Point2d translate_middle = new Point2d(0.0,maxHeight/2);
+        middle.translate(middle.getCoords(), translate_middle);
 
-        a.addAll(d.getCoords());
-        a.addAll(g.getCoords());
-        a.addAll(m.getCoords());
+        a.addAll(left.getCoords());
+        a.addAll(right.getCoords());
+        a.addAll(middle.getCoords());
 
         return a;
     }
@@ -46,26 +48,32 @@ public final class LetterFactory {
      * @return BaseShape containing the letter B
      */
     public static BaseShape create_B() {
-        BaseShape a = new BaseShape();
-        Rectangle d = new Rectangle(stripeThickness, maxHeight);
-        Circle c_bas = new Circle(halfMaxHeight/2);
-        Circle c_haut = new Circle(halfMaxHeight/2);
-        Circle c_vide = new Circle(halfMaxHeight/2-stripeThickness);
+        BaseShape b = new BaseShape();
 
-        c_bas.removeAll(c_vide.getCoords());
-        c_haut.removeAll(c_vide.getCoords());
+        // rectangle vertical
+        Rectangle vertical = new Rectangle(stripeThickness, maxHeight);
 
-        Point2d translate_c = new Point2d((halfMaxHeight/2.0), halfMaxHeight/2.0 );
-        Point2d translate_c_haut = new Point2d((halfMaxHeight/2.0), -halfMaxHeight/2.0 );
+        // cercle du bas
+        Circle down = new Circle(halfMaxHeight/2);
+        // cercle du haut
+        Circle up = new Circle(halfMaxHeight/2);
+        // cercle pour faire le vide
+        Circle empty = new Circle(halfMaxHeight/2-stripeThickness);
 
-        c_bas.translate(c_bas.getCoords(), translate_c);
-        c_haut.translate(c_haut.getCoords(), translate_c_haut);
+        down.removeAll(empty.getCoords());
+        up.removeAll(empty.getCoords());
 
-        a.addAll(d.getCoords());
-        a.addAll(c_bas.getCoords());
-        a.addAll(c_haut.getCoords());
+        Point2d translate_down = new Point2d((halfMaxHeight/2.0), halfMaxHeight/2.0);
+        Point2d translate_up = new Point2d((halfMaxHeight/2.0), -halfMaxHeight/2.0 );
 
-        return a;
+        down.translate(down.getCoords(), translate_down);
+        up.translate(up.getCoords(), translate_up);
+
+        b.addAll(vertical.getCoords());
+        b.addAll(down.getCoords());
+        b.addAll(up.getCoords());
+
+        return b;
     }
 
     /** TODO
@@ -73,7 +81,19 @@ public final class LetterFactory {
      * @return BaseShape containing the letter C
      */
     public static BaseShape create_C() {
-        return new BaseShape();
+        BaseShape c = new BaseShape();
+        // grande ellipse
+        Ellipse first = new Ellipse(halfMaxWidth, halfMaxHeight);
+        // petite ellipse
+        Ellipse empty = new Ellipse(halfMaxWidth + 15, halfMaxHeight - 15);
+        Point2d translate_empty = new Point2d(halfMaxWidth / 2 + stripeThickness/5, 0.0);
+        empty.translate(empty.getCoords(), translate_empty);
+
+        first.removeAll(empty.getCoords());
+
+        c.addAll(first.getCoords());
+
+        return c;
     }
 
     /** TODO
@@ -81,15 +101,65 @@ public final class LetterFactory {
      * @return BaseShape containing the letter E
      */
     public static BaseShape create_E() {
-        return new BaseShape();
+        BaseShape e = new BaseShape();
+
+        // rectangle vertical
+        Rectangle vertical = new Rectangle(stripeThickness,maxHeight);
+        Point2d translate_vertical = new Point2d(-halfMaxWidth + halfStripeThickness, 0.0);
+        vertical.translate(vertical.getCoords(), translate_vertical);
+
+        // rectangle en haut
+        Rectangle up = new Rectangle(maxWidth, stripeThickness);
+        Point2d translate_up = new Point2d(0.0, halfMaxHeight - halfStripeThickness);
+        up.translate(up.getCoords(), translate_up);
+
+        // rectangle au centre
+        Rectangle middle = new Rectangle(maxWidth, stripeThickness);
+        Point2d translate_middle = new Point2d(0.0,0.0);
+        middle.translate(middle.getCoords(), translate_middle);
+
+        // rectangle en bas
+        Rectangle down = new Rectangle(maxWidth, stripeThickness);
+        Point2d translate_down = new Point2d(0.0, -halfMaxHeight + halfStripeThickness);
+        down.translate(down.getCoords(), translate_down);
+
+        e.addAll(vertical.getCoords());
+        e.addAll(up.getCoords());
+        e.addAll(middle.getCoords());
+        e.addAll(down.getCoords());
+
+        return e;
     }
+
+
 
     /** TODO
      * Create the letter H graphically
      * @return BaseShape containing the letter H
      */
     public static BaseShape create_H() {
-        return new BaseShape();
+        BaseShape h = new BaseShape();
+
+        // rectangle gauche
+        Rectangle left = new Rectangle(stripeThickness, maxHeight);
+        Point2d translate_left = new Point2d(-halfMaxWidth + halfStripeThickness, 0.0);
+        left.translate(left.getCoords(), translate_left);
+
+        // rectangle droit
+        Rectangle right = new Rectangle(stripeThickness, maxHeight);
+        Point2d translate_right = new Point2d(halfMaxWidth, 0.0);
+        right.translate(right.getCoords(), translate_right);
+
+        // rectangle centre
+        Rectangle middle = new Rectangle(halfMaxWidth, stripeThickness);
+        Point2d translate_middle = new Point2d(0.0, 0.0);
+        middle.translate(middle.getCoords(), translate_middle);
+
+        h.addAll(left.getCoords());
+        h.addAll(right.getCoords());
+        h.addAll(middle.getCoords());
+
+        return h;
     }
 
     /** TODO
@@ -97,7 +167,29 @@ public final class LetterFactory {
      * @return BaseShape containing the letter N
      */
     public static BaseShape create_N() {
-        return new BaseShape();
+        BaseShape n = new BaseShape();
+
+        // rectangle gauche
+        Rectangle left = new Rectangle(stripeThickness, maxHeight);
+        Point2d translate_left = new Point2d(-halfMaxWidth - halfStripeThickness, 0.0);
+        left.translate(left.getCoords(), translate_left);
+
+        // rectangle droit
+        Rectangle right = new Rectangle(stripeThickness, maxHeight);
+        Point2d translate_right= new Point2d(halfMaxWidth - stripeThickness, 0.0);
+        right.translate(right.getCoords(), translate_right);
+
+        // rectangle centre
+        Rectangle middle = new Rectangle(maxHeight, stripeThickness);
+        middle.rotate(middle.getCoords(), Math.toRadians(73));
+        Point2d translate_middle = new Point2d(-halfMaxWidth + stripeThickness, 0.0);
+        middle.translate(middle.getCoords(), translate_middle);
+
+        n.addAll(left.getCoords());
+        n.addAll(right.getCoords());
+        n.addAll(middle.getCoords());
+
+        return n;
     }
 
     /** TODO
@@ -105,7 +197,17 @@ public final class LetterFactory {
      * @return BaseShape containing the letter O
      */
     public static BaseShape create_O() {
-        return new BaseShape();
+        BaseShape o = new BaseShape();
+        // ellipse
+        Ellipse first = new Ellipse(halfMaxWidth, halfMaxHeight);
+        // petite ellipse
+        Ellipse empty = new Ellipse(halfMaxWidth-halfStripeThickness, halfMaxHeight-halfStripeThickness);
+
+        first.removeAll(empty.getCoords());
+
+        o.addAll(first.getCoords());
+
+        return o;
     }
 
 }

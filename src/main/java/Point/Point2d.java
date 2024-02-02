@@ -132,13 +132,7 @@ public class Point2d extends AbstractPoint {
      */
     @Override
     public Point2d clone() {
-        Double[] clonedVector = new Double[vector.length];
-
-        for (int i = 0; i < vector.length; i++) {
-            clonedVector[i] = new Double(vector[i]);
-        }
-
-        return new Point2d(clonedVector);
+        return new Point2d(this.vector[X], this.vector[Y]);
     }
 
 }

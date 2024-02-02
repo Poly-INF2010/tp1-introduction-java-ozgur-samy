@@ -1,6 +1,5 @@
 package Point;
 
-import java.util.*;
 
 public final class PointOperator {
 
@@ -32,10 +31,7 @@ public final class PointOperator {
             }
         }
 
-        for (int i = 0; i < vector.length; i++) {
-            vector[i] = result[i];
-
-        }
+        System.arraycopy(result, 0, vector, 0, vector.length);
     }
 
     /** TODO
