@@ -54,17 +54,17 @@ public final class LetterFactory {
         Rectangle vertical = new Rectangle(stripeThickness, maxHeight);
 
         // cercle du bas
-        Circle down = new Circle(halfMaxHeight/2);
+        Circle down = new Circle(halfMaxHeight/1.9);
         // cercle du haut
-        Circle up = new Circle(halfMaxHeight/2);
+        Circle up = new Circle(halfMaxHeight/1.9);
         // cercle pour faire le vide
-        Circle empty = new Circle(halfMaxHeight/2-stripeThickness);
+        Circle empty = new Circle(halfMaxHeight/3);
 
         down.removeAll(empty.getCoords());
         up.removeAll(empty.getCoords());
 
-        Point2d translate_down = new Point2d((halfMaxHeight/2.0), halfMaxHeight/2.0);
-        Point2d translate_up = new Point2d((halfMaxHeight/2.0), -halfMaxHeight/2.0 );
+        Point2d translate_down = new Point2d((halfMaxHeight/2.5), halfMaxHeight/2.0);
+        Point2d translate_up = new Point2d((halfMaxHeight/2.5), -halfMaxHeight/2.0);
 
         down.translate(down.getCoords(), translate_down);
         up.translate(up.getCoords(), translate_up);
@@ -84,12 +84,15 @@ public final class LetterFactory {
         BaseShape c = new BaseShape();
         // grande ellipse
         Ellipse first = new Ellipse(halfMaxWidth, halfMaxHeight);
-        // petite ellipse
-        Ellipse empty = new Ellipse(halfMaxWidth + 15, halfMaxHeight - 15);
-        Point2d translate_empty = new Point2d(halfMaxWidth / 2 + stripeThickness/5, 0.0);
-        empty.translate(empty.getCoords(), translate_empty);
+        // cercle vide
+        Circle empty1 = new Circle(37.0);
+        Point2d translate_empty1 = new Point2d(halfMaxWidth / 4 + stripeThickness/7, 0.0);
+        empty1.translate(empty1.getCoords(), translate_empty1);
+        //Ellipse vide
+        Ellipse empty2 = new Ellipse(halfMaxWidth - 5, halfMaxHeight- 5);
 
-        first.removeAll(empty.getCoords());
+        first.removeAll(empty1.getCoords());
+        first.removeAll(empty2.getCoords());
 
         c.addAll(first.getCoords());
 
